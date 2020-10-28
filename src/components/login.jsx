@@ -16,6 +16,17 @@ const Login = () => {
       localStorage.setItem("loginToken", res.data.data.token);
     });
   };
+
+  /*
+    Auth middleware
+    - toekn
+    - tojen -> emial
+    - getUser by emial
+    - match both token
+    
+    - return id/email
+  */
+
   return (
     <div className="login">
       <div className="modal is-active">
