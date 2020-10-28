@@ -3,20 +3,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const onSubmitLogin = (e) => {
     const login = {
       email: email,
-      password: password
-    }
-    axios
-      .post(`${config.baseUrl}/login-user`, login)
-      .then((res) => {
-         localStorage.setItem("loginToken",res.data.data.token)
-      });
-      
-  }
+      password: password,
+    };
+    axios.post(`${config.baseUrl}/login-user`, login).then((res) => {
+      console.log("User logged in succesfully");
+      localStorage.setItem("loginToken", res.data.data.token);
+    });
+  };
   return (
     <div className="login">
       <div className="modal is-active">
@@ -47,21 +46,23 @@ const Login = () => {
             <br></br>
           </section>
           <footer className="modal-card-foot">
-            <button className="button is-success"
+            <button
+              className="button is-success"
               name="btnLogin"
               id="btnLogin"
               value="login"
-              onClick={onSubmitLogin}>Login</button>
-              <Link to="/create-user">
+              onClick={onSubmitLogin}
+            >
+              Login
+            </button>
+            <Link to="/create-user">
               <button className="button">SignUp</button>
-              </Link>
-            
+            </Link>
           </footer>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Login;
