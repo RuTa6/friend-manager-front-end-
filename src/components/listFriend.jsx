@@ -4,32 +4,75 @@ import config from "../config";
 
 const ListFriend = (props) => {
   const [friends, setFriends] = useState([]);
-  axios.get(`${config.baseUrl}/list-friend`).then((res) => {
-    setFriends(res.data.data);
-  });
+ 
+  axios
+    .get(`${config.baseUrl}/list-friend`)
+    .then((res) => {
+      setFriends(res.data.data);
+    });
+  
+  const deleteFriend=((e)=>{
+    axios
+      .delete(`${config.baseUrl}/delete-friend/${e.target.value}`)
+      .then((res)=>{
+        alert(res)
+      })
+  }
+  )
+
 
   return (
-    <div className="listFriends">
-        <h3>Here are your friends...</h3>
     <div className="list">
-      {friends.map((friend) => {
-        return (
-          <div className="card">
-            <div className="header">
-              <h3>{friend.fullName}</h3>
-              <a href="#"><img src="https://img.icons8.com/cotton/2x/edit.png"></img></a>
-              <a href="#"><img src="https://img.icons8.com/cute-clipart/2x/delete-sign.png"></img></a>
+      <section class="modal-card-body">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+              <ul>
+                <li><a href="/addFriend">Create Friend</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Friends List</a></li>
+              </ul>
+            </nav>
+          </section>
+      <div className="columns">
+        
+        {friends.map((friend) => {
+          return (
+            <div className="column is-half">
+              <div className="card">
+                <header className="card-header">
+                  <p className="card-header-title">
+                    {friend.fullName}
+                  </p>
+                  <a href="#" className="card-header-icon" aria-label="more options">
+                    <span className="icon">
+                      <i className="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </header>
+                <div className="card-content">
+                  <div className="content">
+                    Address:<b>{friend.address}</b>
+                    <br></br>
+                  Contact Number:<b>{friend.contactNumber}</b>
+                    <br></br>
+                  Date of Birth:<b>{friend.dateOfBirth}</b>
+                  </div>
+                </div>
+                <footer className="card-footer">
+                  <a href="#" 
+                  className="card-footer-item" 
+                  value={friend._id}>
+                    Edit</a>
+                  <a href={deleteFriend} 
+                  className="card-footer-item"
+                  value={friend._id}
+                  >Delete</a>
+                </footer>
+              </div>
             </div>
-            <div className="content">
-              <p>Address:<b>{friend.address}</b></p>
-              <p>Contact Number:<b>{friend.contactNumber}</b></p>
-              <p>Date of Birth:<b>{friend.dateOfBirth}</b></p>
-            </div>
-          </div>
-        );
-      })}
+          );
+
+        })}
+      </div>
     </div>
-    </div>
-  );
-};
+  )
+}
 export default ListFriend;

@@ -6,9 +6,6 @@ const UpdateFriend=()=>{
   const [address, setAddress] = useState("");
   const [number, setNumber] = useState("");
  
-
- 
-
   const onSubmitUpdateFriend = (ev) => {
     
     const friend = {

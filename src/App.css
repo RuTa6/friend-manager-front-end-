@@ -6,6 +6,7 @@
   margin-top: 10px;
 }
 .container {
+
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 60px;
@@ -31,37 +32,27 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.list{
- display: flex;
- flex-direction: column;
-}
-.card {
-    text-align: left;
-    padding-left: 20px;
-    width: 250px;
-    border-radius: 0.25rem;
-    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);  
-    overflow: hidden;
-    margin: 2px;
-    background:rgba(255, 251, 251, 0.7);
-    height: fit-content;
-    color: black;
-    float: left;
-}
 input {
   color: black;
   font-weight: bolder;
   width: 90%;
   border: none;
-  border-bottom: black;
-  background-color: rgba(255, 251, 251, 0.7);
+  border-bottom: black solid 1px;
+ 
   height: 30px;
   margin-bottom: 10px;
   margin-top: 10px;
 }
-
-img{
-    height: 40px;
-    width: 40px;
+.card{
+  margin-top: 10px;
 }
-
+.columns{
+  display: flex;
+  flex-wrap: wrap;
+}
+.button1{
+  margin-right: 10px;
+}
+.buttons{
+  margin-top: 50px;
+}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import config from "../config";
 const Signup = () => {
   const [uName, setUName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword,setCPassword]=useState("")
-
  
 
   const onSubmitSignUp = (ev) => {
@@ -24,9 +24,16 @@ const Signup = () => {
 }
   };
   return (
-    <div className="signup">
-      <h3>Sign Up Free...</h3>
-        <input
+    <div className="signup ">
+     <div className="modal is-active">
+  <div className="modal-background"></div>
+  <div className="modal-card">
+    <header className="modal-card-head">
+      <p className="modal-card-title">Create an account for free.. </p>
+      <button className="delete" aria-label="close"></button>
+    </header>
+    <section className="modal-card-body">
+    <input
           type="text"
           name="txtUName"
           id="txtUName"
@@ -63,16 +70,21 @@ const Signup = () => {
             (e)=> {
                     setCPassword(e.target.value)
         }}
-        ></input> 
-        <br></br>
-        <input
-          type="submit"
-          name="btnSignup"
-          id="btnSignup"
-          value="SignUp"
-          onClick={onSubmitSignUp}
         ></input>
-     
+    </section>
+    <footer className="modal-card-foot">
+      <button className="button is-success" 
+      name="btnSignup"
+      id="btnSignup"
+      value="SignUp"
+      onClick={onSubmitSignUp}>Create</button>
+      <Link to="/login">
+        <button className="button">Login</button>
+      </Link>
+      
+    </footer>
+  </div>
+</div>
     </div>
   );
 };
