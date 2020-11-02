@@ -2,6 +2,8 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import config from "../config";
 import { Redirect } from "react-router";
+
+
 const AddFriend = () => {
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
@@ -19,6 +21,7 @@ const AddFriend = () => {
 
   const onSubmitAddFriend = (ev) => {
     const friend = {
+      _id:localStorage.getItem("id"),
       fullName: fullName,
       address: address,
       contactNumber: number,
