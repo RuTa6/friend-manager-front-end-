@@ -21,7 +21,7 @@ const ListFriend = ({ token }) => {
       });
   }, []);
   const deleteFriend=((e)=>{
-    confirm("Are you sure to delete???..")
+    
     console.log(e.target.value)
     axios({
       url:`${config.baseUrl}/delete-friend/${e.target.value}`,
@@ -40,14 +40,7 @@ const ListFriend = ({ token }) => {
       <div>
 
       </div>
-      <section class="modal-card-body">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
-              <ul>
-                <li><a href="/addFriend">Create Friend</a></li>
-                <li class="is-active"><a href="#" aria-current="page">Friends List</a></li>
-              </ul>
-            </nav>
-          </section>
+    
       <div className="columns">
         
         {friends.map((friend) => {

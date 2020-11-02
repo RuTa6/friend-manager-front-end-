@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { Link} from "react-router-dom";
 import axios from "axios";
 import config from "../config";
 import { Redirect } from "react-router";
@@ -38,15 +39,11 @@ const AddFriend = () => {
         <div class="modal-card">
           <header class="modal-card-head">
             {/* <p class="modal-card-title">Create a new friend..</p> */}
-            <button class="delete" aria-label="close"></button>
+            <Link to="/"><button class="delete" aria-label="close"></button></Link>
+            
           </header>
           <section class="modal-card-body">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
-              <ul>
-                <li><a href="/list-friend">Friends List</a></li>
-                <li class="is-active"><a href="#" aria-current="page">Create Friend</a></li>
-              </ul>
-            </nav>
+          
           </section>
           <section class="modal-card-body">
             <input
