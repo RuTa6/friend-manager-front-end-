@@ -13,7 +13,7 @@ import "./App.css";
 
 const App = () => {
   const [token, setToken] = useState(null);
-  const [isActive, setisActive] =useState(false);
+  const [isActive, setisActive] = useState(false);
   useEffect(() => {
     const loginToken = localStorage.getItem("loginToken");
     setToken(loginToken);
@@ -33,18 +33,18 @@ const App = () => {
                 <div>
                   <nav class="navbar is-info">
                     <div class="navbar-brand">
-                   
                       <div
                         className="navbar-burger burger"
                         onClick={() => {
                           setisActive(!isActive);
                         }}
                         role="button"
-                        className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+                        className={`navbar-burger burger ${
+                          isActive ? "is-active" : ""
+                        }`}
                         aria-label="menu"
                         aria-expanded="false"
                         data-target="navbarExampleTransparentExample"
-                      
                       >
                         <span></span>
                         <span></span>
@@ -55,7 +55,6 @@ const App = () => {
                     <div
                       id="navbarExampleTransparentExample"
                       className={`navbar-menu ${isActive ? "is-active" : ""}`}
-                     
                     >
                       <div class="navbar-start">
                         <a class="navbar-item" href="/addFriend">
@@ -116,8 +115,16 @@ const App = () => {
           ></Route>
           <Route path="/login" component={Login} exact></Route>
           <Route path="/createUser" component={Signup} exact></Route>
-          <Route path="/addFriend" component={AddFriend} exact></Route>
-          <Route path="/updateFriend" component={UpdateFriend} exact></Route>
+          <Route
+            path="/addFriend"
+            component={() => <AddFriend token={token} />}
+            exact
+          ></Route>
+          <Route
+            path={`/updateFriend/:id`}
+            component={() => <UpdateFriend token={token} />}
+            exact
+          ></Route>
         </div>
       </Router>
     </div>

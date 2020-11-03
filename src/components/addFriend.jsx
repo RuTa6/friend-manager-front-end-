@@ -5,20 +5,11 @@ import config from "../config";
 import { Redirect } from "react-router";
 
 
-const AddFriend = () => {
+const AddFriend = ({token}) => {
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [number, setNumber] = useState("");
   const [dob, setDOB] = useState("")
-  const [token,setToken]=useState("")
-  useEffect(() => {
-    const token1 = localStorage.getItem("loginToken");
-    if (token1) {
-      setToken(token1);
-    } else {
-      return <Redirect to="/"></Redirect>
-    }
-  }, []);
 
   const onSubmitAddFriend = (ev) => {
     const friend = {
@@ -34,11 +25,12 @@ const AddFriend = () => {
   }
   return (
     <div className="addFriend">
+      {token ? (
       <div class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            {/* <p class="modal-card-title">Create a new friend..</p> */}
+            <p class="modal-card-title">Create a new friend..</p>
             <Link to="/"><button class="delete" aria-label="close"></button></Link>
             
           </header>
@@ -94,11 +86,13 @@ const AddFriend = () => {
               Create Friend
             </button>
             
-            {/* <button class="button">Cancel</button> */}
+            
           </footer>
         </div>
       </div>
-
+      ):(
+        <div>You are not authorized</div>
+      )}
 
 
 
