@@ -8,7 +8,7 @@ const UpdateFriend = ({ token }) => {
   const [number, setNumber] = useState("");
   const [dob,setDOB]=useState("")
   const { id } = useParams();
-  
+  const [res,setRes]=useState()
   useEffect(() => {
     axios({
       url: `${config.baseUrl}/get-friend/${id}`,
@@ -17,11 +17,12 @@ const UpdateFriend = ({ token }) => {
         authentication: `Bearer ${token}`,
       },
     })
-      .then((res) => {
-        setFullName(res.data.data.fullName);
-        setAddress(res.data.data.address);
-        setNumber(res.data.data.contactNumber);
-        setDOB(res.data.data.dateOfBirth)
+      .then((response) => {
+        setFullName(response.data.data.fullName);
+        setAddress(response.data.data.address);
+        setNumber(response.data.data.contactNumber);
+        setDOB(response.data.data.dateOfBirth)
+        setRes(response.data.message)
       })
       .catch((e) => {
         console.log("something went wrong" + e);
@@ -36,12 +37,16 @@ const UpdateFriend = ({ token }) => {
       dateOfBirth: dob
     };
     axios
-      .put(`${config.baseUrl}/update-friend/${id}`, friend)
+      .put(`${config.baseUrl}/update-friend/${id}`, friend,{
+        headers:{
+          authentication:`Bearer ${token}`
+        }
+      })
       .then(alert("data sent"));
   };
   return (
     <div className="addFriend">
-      {(token)?(
+      {res !== "auth error" ?  (
       <div class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -103,8 +108,7 @@ const UpdateFriend = ({ token }) => {
         </div>
       </div>
       
-      ):(
-        <div>You are not authorized</div>)}
+      ):(<div>You are not authorized</div>)}
     </div>
   );
 };

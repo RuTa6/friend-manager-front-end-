@@ -2,7 +2,6 @@ import React, { useState,useEffect } from "react";
 import { Link} from "react-router-dom";
 import axios from "axios";
 import config from "../config";
-import { Redirect } from "react-router";
 
 
 const AddFriend = ({token}) => {
@@ -10,7 +9,7 @@ const AddFriend = ({token}) => {
   const [address, setAddress] = useState("");
   const [number, setNumber] = useState("");
   const [dob, setDOB] = useState("")
-
+  const [res,setRes]=useState("")
   const onSubmitAddFriend = (ev) => {
     const friend = {
       _id:localStorage.getItem("id"),
@@ -20,12 +19,19 @@ const AddFriend = ({token}) => {
       dateOfBirth: dob
     };
     axios
-      .post(`${config.baseUrl}/add-friend`, friend)
-      .then(alert("data sent"));
+      .post(`${config.baseUrl}/add-friend`, friend,{
+        headers:{
+          authentication: `Bearer ${token}`
+        }
+      })
+      .then((response)=>{
+          setRes(response.data.message)
+          console.log(res)
+       } );
   }
   return (
     <div className="addFriend">
-      {token ? (
+      {res !== "auth error" ?  (
       <div class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -90,13 +96,9 @@ const AddFriend = ({token}) => {
           </footer>
         </div>
       </div>
-      ):(
-        <div>You are not authorized</div>
-      )}
-
-
-
-
+       ):
+       (<div> You are not authorized </div>)}
+      
     </div>
   )
 }

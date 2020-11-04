@@ -47,3 +47,6 @@ input {
 .buttons{
   margin-top: 50px;
 }
+.card-footer button{
+  margin: 2px 2px 2px 2px;
+}

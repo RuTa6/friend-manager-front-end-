@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
-const jwt = require("jsonwebtoken");
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,26 +18,10 @@ const Login = () => {
       .then((res) => {
         console.log("User logged in succesfully");
         localStorage.setItem("loginToken", res.data.data.token);
-
-        //verify the token and get the email
-        const email=jwt.verify(res.data.data.token, "secretKey123", (err, result) => {
-          return(result.email);
-        });
-        const auth = {
-          email: email
-        };
-        return axios
-          .post(`${config.baseUrl}/auth-user`, auth).then((respose) => {
-            
-            const loginToken=localStorage.getItem("loginToken")
-            if (loginToken=== respose.data.data.token){
-              localStorage.setItem("userName",respose.data.data.userName)
-              localStorage.setItem("id",respose.data.data.id)
-            } else 
-            {
-              localStorage.clear()
-            }
-          });
+        localStorage.setItem("userName",res.data.data.userName)
+        return(
+          <Link to="/"></Link>
+        )
         })
       
     };

@@ -4,19 +4,18 @@ import config from "../config";
 import { Link } from "react-router-dom";
 
 const ListFriend = ({ token }) => {
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState({});
 
   useEffect(() => {
     axios({
       url: `${config.baseUrl}/list-friend`,
-      method: "get",
-  
-      headers: {
+      method: "get",  
+      headers:{
         authentication: `Bearer ${token}`,
       },
     })
       .then((res) => {
-        setFriends(res.data.data);
+        setFriends(res.data.data);      
       })
       .catch((e) => {
         console.log("something went wrong" + e);
@@ -37,13 +36,12 @@ const ListFriend = ({ token }) => {
         console.log("error" + e);
       });
   };
-
   return (
     <div className="list">
-      {(token)? (
-
+      {friends !== "auth error" ?  (
       <div className="columns">
-        {friends.map((friend) => {
+        {Object.keys(friends).map((friendArray) => {
+            const friend= friends[friendArray]
           return (
             <div className="column is-half">
               <div className="card">
@@ -70,12 +68,12 @@ const ListFriend = ({ token }) => {
                 </div>
                 <footer className="card-footer">
                   <Link to={`/updateFriend/${friend._id}`}>
-                    <button className="card-footer-item" value={friend._id}>
+                    <button className="card-footer-item button is-primary" value={friend._id}>
                       Edit Friend
                     </button>
                   </Link>
                   <button
-                    className="card-footer-item"
+                    className="card-footer-item button is-primary"
                     value={friend._id}
                     onClick={deleteFriend}
                   >
@@ -86,9 +84,10 @@ const ListFriend = ({ token }) => {
             </div>
           );
         })}
+        
       </div>
-      ):(
-        <div>You are not authorized</div> )}
+     ):
+     (<div> You are not authorized </div>)}
     </div>
   );
 };
